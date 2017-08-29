@@ -1,0 +1,2 @@
+# bbs_play_framework_sample
+play frameworkでサンプル掲示板作成
