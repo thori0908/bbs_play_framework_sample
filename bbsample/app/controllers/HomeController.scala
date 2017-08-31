@@ -3,6 +3,7 @@ package controllers
 import javax.inject._
 import play.api._
 import play.api.mvc._
+import models._
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -19,6 +20,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
    * a path of `/`.
    */
   def index() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.index())
+    val topics = Seq(Topic(1, "タイトル", "ないようないよう"))
+    Ok(views.html.index(topics))
   }
 }
