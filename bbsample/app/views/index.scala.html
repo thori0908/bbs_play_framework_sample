@@ -1,5 +1,11 @@
-@()
+@(topics: Seq[Topic])
 
 @main("Welcome to Play") {
-  <h1>Welcome to Play!</h1>
+  <h1>掲示板</h1>
+
+  <ul>
+    @for(topic <- topics) {
+      <li>@topic.title</li>
+    }
+  </ul>
 }
