@@ -20,7 +20,8 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
    * a path of `/`.
    */
   def index() = Action { implicit request: Request[AnyContent] =>
-    val topics = Seq(Topic(1, "タイトル", "ないようないよう"))
+    val topics = Seq(
+      Topic(TopicId(1), "タイトル", "ないようないよう"))
     Ok(views.html.index(topics))
   }
 }

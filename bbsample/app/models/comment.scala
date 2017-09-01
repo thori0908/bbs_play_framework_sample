@@ -1,6 +1,8 @@
 package models
 
 case class Comment(
-  id: Long,
+  id: CommentId,
   body: String
 )
+
+case class CommentId(value: Int)
