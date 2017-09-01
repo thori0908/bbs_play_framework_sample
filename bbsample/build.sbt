@@ -13,7 +13,8 @@ libraryDependencies ++= Seq(
   "mysql"           %  "mysql-connector-java"         % "5.1.44", // your jdbc driver here
   "org.scalikejdbc" %% "scalikejdbc"                  % "3.0.2",
   "org.scalikejdbc" %% "scalikejdbc-config"           % "3.0.2",
-  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.6.0-scalikejdbc-3.0"
+  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.6.0-scalikejdbc-3.0",
+  "org.flywaydb" %% "flyway-play" % "4.0.0"
 )
 
 // Adds additional packages into Twirl
