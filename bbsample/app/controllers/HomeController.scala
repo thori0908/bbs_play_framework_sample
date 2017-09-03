@@ -4,6 +4,7 @@ import javax.inject._
 import play.api._
 import play.api.mvc._
 import models._
+import repositories._
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -11,6 +12,7 @@ import models._
  */
 @Singleton
 class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+  val topicRepository = new TopicRepository
 
   /**
    * Create an Action to render an HTML page.
@@ -20,8 +22,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
    * a path of `/`.
    */
   def index() = Action { implicit request: Request[AnyContent] =>
-    val topics = Seq(
-      Topic(TopicId(1), "タイトル", "ないようないよう"))
+    val topics = topicRepository.findAll
     Ok(views.html.index(topics))
   }
 }
