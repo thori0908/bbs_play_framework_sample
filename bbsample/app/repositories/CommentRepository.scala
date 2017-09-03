@@ -17,4 +17,12 @@ class CommentRepository {
       .list
       .apply()
   }
+
+  def create(body: String)(implicit session: DBSession = AutoSession): Comment = {
+    val id = sql"insert into comments (body) values (${body})"
+      .updateAndReturnGeneratedKey
+      .apply()
+
+    Comment(CommentId(id), body)
+  }
 }
