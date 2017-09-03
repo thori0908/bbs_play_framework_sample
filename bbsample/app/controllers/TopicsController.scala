@@ -11,7 +11,7 @@ class TopicsController @Inject()(cc: ControllerComponents) extends AbstractContr
   val topicRepository = new TopicRepository
   val commentRepository = new CommentRepository
 
-  def show(id: Int) = Action { implicit request: Request[AnyContent] =>
+  def show(id: Long) = Action { implicit request: Request[AnyContent] =>
     val topic = topicRepository.findBy(TopicId(id))
     val comments = commentRepository.findBy(TopicId(id))
 

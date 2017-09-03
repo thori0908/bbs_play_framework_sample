@@ -6,4 +6,4 @@ case class Topic(
   body: String
 )
 
-case class TopicId(value: Int)
+case class TopicId(value: Long)

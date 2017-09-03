@@ -5,4 +5,4 @@ case class Comment(
   body: String
 )
 
-case class CommentId(value: Int)
+case class CommentId(value: Long)
