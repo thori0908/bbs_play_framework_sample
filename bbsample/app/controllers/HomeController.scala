@@ -3,6 +3,8 @@ package controllers
 import javax.inject._
 import play.api._
 import play.api.mvc._
+import play.api.data._
+import play.api.data.Forms._
 import models._
 import repositories._
 
@@ -11,7 +13,7 @@ import repositories._
  * application's home page.
  */
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class HomeController @Inject()(messagesAction: MessagesActionBuilder, cc: ControllerComponents) extends AbstractController(cc) {
   val topicRepository = new TopicRepository
 
   /**
@@ -21,8 +23,17 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
    * will be called when the application receives a `GET` request with
    * a path of `/`.
    */
-  def index() = Action { implicit request: Request[AnyContent] =>
+  def index() = messagesAction { implicit request: MessagesRequest[AnyContent] =>
     val topics = topicRepository.findAll
-    Ok(views.html.index(topics))
+    val topicForm = Form(
+      mapping(
+        "title" -> text,
+        "body"  -> text
+      )(TopicData.apply)(TopicData.unapply)
+    )
+
+    Ok(views.html.index(topics, topicForm))
   }
 }
+
+case class TopicData(title: String, body: String)

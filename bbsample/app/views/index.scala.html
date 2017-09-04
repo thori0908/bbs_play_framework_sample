@@ -1,11 +1,20 @@
-@(topics: Seq[Topic])
+@(topics: Seq[Topic], topicForm: Form[TopicData])(implicit request: MessagesRequestHeader)
+@import helper._
 
 @main("Welcome to Play") {
   <h1>掲示板</h1>
 
+  @helper.form(action = routes.TopicsController.create()) {
+    @CSRF.formField
+    @helper.inputText(topicForm("title"))
+    @helper.inputText(topicForm("body"))
+    <input type='submit' value='送信'>
+  }
+
+
   <ul>
     @for(topic <- topics) {
-      <li>@topic.title</li>
+      <li><a href="@controllers.routes.TopicsController.show(topic.id.value)">@topic.title</a></li>
     }
   </ul>
 }
