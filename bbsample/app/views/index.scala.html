@@ -6,8 +6,8 @@
 
   @helper.form(action = routes.TopicsController.create()) {
     @CSRF.formField
-    @helper.inputText(topicForm("title"))
-    @helper.inputText(topicForm("body"))
+    @helper.inputText(topicForm("title"), '_label -> "スレッドタイトル")
+    @helper.inputText(topicForm("body"), '_label -> "スレッド説明文")
     <input type='submit' value='送信'>
   }
 
