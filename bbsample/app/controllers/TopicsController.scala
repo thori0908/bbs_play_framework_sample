@@ -15,12 +15,18 @@ class TopicsController @Inject()(messagesAction: MessagesActionBuilder, cc: Cont
 
   private val topicForm = Form(tuple("title" -> text, "body" -> text))
 
-  def show(id: Long) = Action { implicit request: Request[AnyContent] =>
+  def show(id: Long) = messagesAction { implicit request: MessagesRequest[AnyContent] =>
     val topic = topicRepository.findBy(TopicId(id))
     val comments = commentRepository.findBy(TopicId(id))
+    val commentForm = Form(
+      mapping(
+        "body"  -> text,
+        "topicId" -> number
+      )(CommentData.apply)(CommentData.unapply)
+    )
 
     topic match {
-      case Some(topic) => Ok(views.html.Topic.show(topic, comments))
+      case Some(topic) => Ok(views.html.Topic.show(topic, comments, commentForm))
       case None => NotFound
     }
   }
@@ -31,3 +37,5 @@ class TopicsController @Inject()(messagesAction: MessagesActionBuilder, cc: Cont
     Redirect(routes.HomeController.index)
   }
 }
+
+case class CommentData(body: String, topicId: Int)
