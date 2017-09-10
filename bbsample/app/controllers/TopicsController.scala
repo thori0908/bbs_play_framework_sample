@@ -13,16 +13,18 @@ class TopicsController @Inject()(messagesAction: MessagesActionBuilder, cc: Cont
   val topicRepository = new TopicRepository
   val commentRepository = new CommentRepository
 
-  private val topicForm = Form(tuple("title" -> text, "body" -> text))
+  private val topicForm = Form(
+    mapping(
+      "title" -> nonEmptyText(minLength = 10, maxLength = 20),
+      "body"  -> nonEmptyText
+    )(TopicData.apply)(TopicData.unapply)
+  )
 
   def show(id: Long) = messagesAction { implicit request: MessagesRequest[AnyContent] =>
     val topic = topicRepository.findBy(TopicId(id))
     val comments = commentRepository.findBy(TopicId(id))
     val commentForm = Form(
-      mapping(
-        "body"  -> text,
-        "topicId" -> number
-      )(CommentData.apply)(CommentData.unapply)
+      mapping("body" -> nonEmptyText)(CommentData.apply)(CommentData.unapply)
     )
 
     topic match {
@@ -32,10 +34,17 @@ class TopicsController @Inject()(messagesAction: MessagesActionBuilder, cc: Cont
   }
 
   def create = messagesAction { implicit request: MessagesRequest[AnyContent] =>
-    val (title, body) = topicForm.bindFromRequest.get
-    val topic = topicRepository.create(title, body)
-    Redirect(routes.HomeController.index)
+    topicForm.bindFromRequest.fold(
+      formWithErrors => {
+        val topics = topicRepository.findAll
+        BadRequest(views.html.index(topics, formWithErrors))
+      },
+      commentData => {
+        val topic = topicRepository.create(commentData.title, commentData.body)
+        Redirect(routes.HomeController.index)
+      }
+    )
   }
 }
 
-case class CommentData(body: String, topicId: Int)
+case class CommentData(body: String)

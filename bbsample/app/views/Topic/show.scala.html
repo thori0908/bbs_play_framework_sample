@@ -10,7 +10,7 @@
     }
   </ul>
 
-  @helper.form(action = routes.CommentsController.create()) {
+  @helper.form(action = routes.CommentsController.create(topic.id.value)) {
     @CSRF.formField
     @helper.inputText(commentForm("body"), '_label -> "コメント")
     <input type="hidden" value="@topic.id.value" name="topicId">

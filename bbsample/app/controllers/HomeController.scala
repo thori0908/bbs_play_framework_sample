@@ -27,8 +27,8 @@ class HomeController @Inject()(messagesAction: MessagesActionBuilder, cc: Contro
     val topics = topicRepository.findAll
     val topicForm = Form(
       mapping(
-        "title" -> text,
-        "body"  -> text
+        "title" -> nonEmptyText(minLength = 10, maxLength = 20),
+        "body"  -> nonEmptyText
       )(TopicData.apply)(TopicData.unapply)
     )
 
