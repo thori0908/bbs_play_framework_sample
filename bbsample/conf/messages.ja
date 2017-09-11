@@ -1,0 +1,7 @@
+title=サンプル BBS by playframework
+
+models.topic.title=スレッドタイトル
+models.topic.body=スレッド説明
+models.comment.body=コメント
+
+form.submit=送信

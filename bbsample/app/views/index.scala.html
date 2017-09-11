@@ -2,13 +2,13 @@
 @import helper._
 
 @main("Welcome to Play") {
-  <h1>掲示板</h1>
+  <h1>@Messages("title")</h1>
 
   @helper.form(action = routes.TopicsController.create()) {
     @CSRF.formField
-    @helper.inputText(topicForm("title"), '_label -> "スレッドタイトル")
-    @helper.inputText(topicForm("body"), '_label -> "スレッド説明文")
-    <input type='submit' value='送信'>
+    @helper.inputText(topicForm("title"), '_label -> Messages("models.topic.title"))
+    @helper.inputText(topicForm("body"), '_label -> Messages("models.topic.body"))
+    <input type='submit' value='@Messages("form.submit")'>
   }
 
 

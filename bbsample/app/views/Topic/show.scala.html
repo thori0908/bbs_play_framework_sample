@@ -12,8 +12,7 @@
 
   @helper.form(action = routes.CommentsController.create(topic.id.value)) {
     @CSRF.formField
-    @helper.inputText(commentForm("body"), '_label -> "コメント")
-    <input type="hidden" value="@topic.id.value" name="topicId">
-    <input type='submit' value='送信'>
+    @helper.inputText(commentForm("body"), '_label -> Messages("models.comment.body"))
+    <input type='submit' value='@Messages("form.submit")'>
   }
 }
