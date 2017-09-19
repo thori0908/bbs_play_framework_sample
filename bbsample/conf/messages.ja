@@ -5,3 +5,9 @@ models.topic.body=スレッド説明
 models.comment.body=コメント
 
 form.submit=送信
+
+error.required=入力してください。
+error.min={0}以上で入力してください。
+error.max={0}以下で入力してください。
+error.minLength={0}文字以上で入力してください。
+error.maxLength={0}文字以下で入力してください。
