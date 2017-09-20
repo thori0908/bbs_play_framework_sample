@@ -1,5 +1,7 @@
 @(topic: Topic, comments: Seq[Comment], commentForm: Form[CommentData])(implicit request: MessagesRequestHeader)
 @import helper._
+@import customHelpers._
+@implicitFieldConstructor = @{ FieldConstructor(customHelpers.inputText.f) }
 
 @main("Welcome to Play") {
   <h1>@topic.title</h1>

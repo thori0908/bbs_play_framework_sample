@@ -1,5 +1,7 @@
 @(topics: Seq[Topic], topicForm: Form[TopicData])(implicit request: MessagesRequestHeader)
 @import helper._
+@import customHelpers._
+@implicitFieldConstructor = @{ FieldConstructor(customHelpers.inputText.f) }
 
 @main("Welcome to Play") {
   <h1>@Messages("title")</h1>
@@ -10,7 +12,6 @@
     @helper.inputText(topicForm("body"), '_label -> Messages("models.topic.body"))
     <input type='submit' value='@Messages("form.submit")'>
   }
-
 
   <ul>
     @for(topic <- topics) {
