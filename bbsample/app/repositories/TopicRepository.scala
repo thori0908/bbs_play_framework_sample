@@ -17,4 +17,12 @@ class TopicRepository {
       .list
       .apply()
   }
+
+  def create(title: String, body: String)(implicit session: DBSession = AutoSession): Topic = {
+    val id = sql"insert into topics (title, body) values (${title}, ${body})"
+      .updateAndReturnGeneratedKey
+      .apply()
+
+    Topic(TopicId(id), title, body)
+  }
 }

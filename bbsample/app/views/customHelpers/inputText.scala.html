@@ -1,0 +1,9 @@
+@(elements: helper.FieldElements)
+
+<label for="@elements.id">@elements.label</label>
+<div>
+  @elements.input
+  @for(error <- elements.errors) {
+    <small class="errors">@error</small>
+  }
+</div>

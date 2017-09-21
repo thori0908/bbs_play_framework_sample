@@ -1,1 +1,8 @@
 # https://www.playframework.com/documentation/latest/ScalaI18N
+title=Sample BBS by playframework
+
+models.topic.title=Title
+models.topic.body=Description
+models.comment.body=Comment
+
+form.submit=Submit

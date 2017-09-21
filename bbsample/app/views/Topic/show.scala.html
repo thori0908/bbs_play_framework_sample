@@ -1,4 +1,7 @@
-@(topic: Topic, comments: Seq[Comment])
+@(topic: Topic, comments: Seq[Comment], commentForm: Form[CommentData])(implicit request: MessagesRequestHeader)
+@import helper._
+@import customHelpers._
+@implicitFieldConstructor = @{ FieldConstructor(customHelpers.inputText.f) }
 
 @main("Welcome to Play") {
   <h1>@topic.title</h1>
@@ -8,4 +11,10 @@
       <li>@comment.body</li>
     }
   </ul>
+
+  @helper.form(action = routes.CommentsController.create(topic.id.value)) {
+    @CSRF.formField
+    @helper.inputText(commentForm("body"), '_label -> Messages("models.comment.body"))
+    <input type='submit' value='@Messages("form.submit")'>
+  }
 }
